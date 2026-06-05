@@ -53,7 +53,7 @@
         { "target": "zip", "arch": ["arm64"] }
       ],
       "icon": "electron/icons/icon.icns",
-      "identity": "MANUEL ROBERTO ORDUNA (4GC6FFK9ZZ)",
+      "identity": null,
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
       "entitlements": "electron/entitlements.mac.plist",
