@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Leather Craft Quote Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Brown Leather (default) ── */
+    :root, [data-theme="brown-leather"] {
+      --bg: #f7f1e8;
+      --bg-subtle: #e8dcc8;
+      --surface: #271c15;
+      --surface2: #32241a;
+      --border: #4a3626;
+      --text: #f0e6d8;
+      --text-dim: #a89278;
+      --text-on-bg: #2a1e14;
+      --text-on-bg-dim: #7a6850;
+      --accent: #bfaa82;
+      --accent-dim: #9a7a48;
+      --accent-light: #e0c990;
+      --input-text: #2a1e14;
+      --green: #5a8a3a;
+      --red: #a04030;
+      --shadow-sm: 0 1px 3px rgba(30,15,5,0.12), 0 1px 2px rgba(30,15,5,0.08);
+      --shadow-md: 0 4px 12px rgba(30,15,5,0.15), 0 2px 4px rgba(30,15,5,0.1);
+      --shadow-lg: 0 8px 30px rgba(30,15,5,0.2), 0 4px 8px rgba(30,15,5,0.1);
+      --shadow-glow: 0 0 20px rgba(191,170,130,0.15);
+      --glass-bg: rgba(39,28,21,0.92);
+      --glass-border: rgba(255,255,255,0.06);
+      --glass-shine: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%);
+      --radius: 10px;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --scrollbar-thumb: #c4b49a;
+      --texture-1: rgba(200,175,140,0.3);
+      --texture-2: rgba(180,155,120,0.2);
+    }
+
+    /* ── Black Leather ── */
+    [data-theme="black-leather"] {
+      --bg: #f0ebe4;
+      --bg-subtle: #ddd7ce;
+      --surface: #1a1a1a;
+      --surface2: #262626;
+      --border: #3a3a3a;
+      --text: #e8e4de;
+      --text-dim: #908880;
+      --text-on-bg: #1a1a1a;
+      --text-on-bg-dim: #5a5550;
+      --accent: #b0a898;
+      --accent-dim: #8a8070;
+      --accent-light: #d0c8b8;
+      --input-text: #1a1a1a;
+      --green: #4a7a30;
+      --red: #903020;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.12);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.12);
+      --shadow-glow: 0 0 20px rgba(176,168,152,0.1);
+      --glass-bg: rgba(26,26,26,0.92);
+      --glass-border: rgba(255,255,255,0.05);
+      --glass-shine: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%);
+      --scrollbar-thumb: #b0a898;
+      --texture-1: rgba(160,150,135,0.15);
+      --texture-2: rgba(140,130,115,0.1);
+    }
+
+    /* ── Brown Leather Dark — dark page, light cards ── */
+    [data-theme="brown-leather-dark"] {
+      --bg: #1c1310;
+      --bg-subtle: #271c15;
+      --surface: #f0e6d8;
+      --surface2: #e8dcc8;
+      --border: #c4b49a;
+      --text: #2a1e14;
+      --text-dim: #7a6850;
+      --text-on-bg: #f0e6d8;
+      --text-on-bg-dim: #a89278;
+      --accent: #bfaa82;
+      --accent-dim: #9a7a48;
+      --accent-light: #e0c990;
+      --input-text: #2a1e14;
+      --green: #8aad5e;
+      --red: #c06050;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+      --shadow-md: 0 4px 14px rgba(0,0,0,0.35), 0 2px 4px rgba(0,0,0,0.2);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.4), 0 4px 8px rgba(0,0,0,0.2);
+      --shadow-glow: 0 0 25px rgba(191,170,130,0.08);
+      --glass-bg: rgba(240,230,216,0.93);
+      --glass-border: rgba(0,0,0,0.06);
+      --glass-shine: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%);
+      --scrollbar-thumb: #4a3626;
+      --texture-1: rgba(60,40,20,0.25);
+      --texture-2: rgba(40,25,10,0.3);
+    }
+
+    /* ── Black Leather Dark — dark page, light cards ── */
+    [data-theme="black-leather-dark"] {
+      --bg: #141414;
+      --bg-subtle: #1e1e1e;
+      --surface: #e8e4de;
+      --surface2: #ddd7ce;
+      --border: #b0a898;
+      --text: #1a1a1a;
+      --text-dim: #5a5550;
+      --text-on-bg: #e8e4de;
+      --text-on-bg-dim: #908880;
+      --accent: #b0a898;
+      --accent-dim: #8a8070;
+      --accent-light: #d0c8b8;
+      --input-text: #1a1a1a;
+      --green: #6abf69;
+      --red: #d46a6a;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.25);
+      --shadow-md: 0 4px 14px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.25);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.45), 0 4px 8px rgba(0,0,0,0.25);
+      --shadow-glow: 0 0 25px rgba(176,168,152,0.06);
+      --glass-bg: rgba(232,228,222,0.93);
+      --glass-border: rgba(0,0,0,0.05);
+      --glass-shine: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 50%);
+      --scrollbar-thumb: #3a3a3a;
+      --texture-1: rgba(40,38,35,0.4);
+      --texture-2: rgba(30,28,25,0.3);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-on-bg);
+      line-height: 1.5;
+      min-height: 100vh;
+      font-size: 14px;
+    }
+    #root { min-height: 100vh; }
+
+    /* Subtle texture on light background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 20%, var(--texture-1) 0%, transparent 70%),
+                  radial-gradient(ellipse at 80% 80%, var(--texture-2) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    #root { position: relative; z-index: 1; }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+
+    /* Input placeholders */
+    ::placeholder { color: var(--input-text); opacity: 0.35; }
+
+    /* Selection */
+    ::selection { background: var(--accent); color: #fff; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>

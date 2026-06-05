@@ -1,0 +1,81 @@
+{
+  "name": "leathercraft-pro",
+  "version": "1.0.0",
+  "description": "Custom Leather Craft Quote Generator — pricing calculator, job log, invoicing",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "node server/index.js & npx vite --port 5174",
+    "dev:electron": "ELECTRON_DEV=1 npx electron .",
+    "server": "node server/index.js",
+    "client": "npx vite --port 5174",
+    "build": "npx vite build",
+    "build:electron": "npx vite build && npx electron-builder --mac",
+    "build:dmg": "npx vite build && npx electron-builder --mac dmg",
+    "pack": "npx vite build && npx electron-builder --dir"
+  },
+  "keywords": ["leather", "pricing", "calculator", "invoice", "crafting"],
+  "author": "Gem.In.Eyes Productions",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "better-sqlite3": "^12.10.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "pdfkit": "^0.18.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
+    "electron": "^42.3.3",
+    "electron-builder": "^26.8.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "vite": "^8.0.16"
+  },
+  "build": {
+    "appId": "com.gemineyes.leathercraftpro",
+    "productName": "LeatherCraft Pro",
+    "copyright": "Copyright © 2026 Gem.In.Eyes Productions",
+    "afterPack": "electron/afterPack.js",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "server/**/*",
+      "electron/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.business",
+      "target": [
+        { "target": "dmg", "arch": ["arm64"] },
+        { "target": "zip", "arch": ["arm64"] }
+      ],
+      "icon": "electron/icons/icon.icns",
+      "identity": "MANUEL ROBERTO ORDUNA (4GC6FFK9ZZ)",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "electron/entitlements.mac.plist",
+      "entitlementsInherit": "electron/entitlements.mac.plist"
+    },
+    "dmg": {
+      "title": "LeatherCraft Pro",
+      "contents": [
+        { "x": 130, "y": 220 },
+        { "x": 410, "y": 220, "type": "link", "path": "/Applications" }
+      ]
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "chibbicodes",
+      "repo": "leathercraft-pro"
+    },
+    "asar": true,
+    "asarUnpack": [
+      "server/**/*",
+      "node_modules/**/*"
+    ],
+    "npmRebuild": false
+  }
+}

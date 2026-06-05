@@ -1,0 +1,9 @@
+node_modules/
+dist/
+release/
+data/
+*.dmg
+*.zip
+*.blockmap
+.DS_Store
+.claude/
